@@ -8,7 +8,9 @@ public class EmployeeManager {
         this.employees = employees;
     }
 
-    public  void addEmployee(Employee employee){
+    public  void addEmployee(String firstName, String lastName, String position, int salary){
+        Employee employee = new Employee(firstName, lastName, position, salary);
+
         Integer keyEmployee = employee.getEmployeeID();
         employees.put(keyEmployee,employee);
     }

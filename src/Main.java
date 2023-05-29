@@ -3,26 +3,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Employee employee1 = new Employee("John", "Doe", "Manager", 75000);
-        Employee employee2 = new Employee("Jane", "Smith", "Accountant",  60000);
-        Employee employee3 = new Employee("Michael", "Johnson", "Accountant", 55000);
-        Employee employee4 = new Employee("Emily", "Jones", "Marketing Specialist", 50000);
-        Employee employee5 = new Employee("David", "Brown", "Accountant", 45000);
-        Employee employee6 = new Employee("Laura", "Taylor", "Human Resources Manager", 70000);
-        Employee employee7 = new Employee("Kevin", "Wilson", "IT Specialist", 60000);
-        Employee employee8 = new Employee("Samantha", "Davis", "Customer Service Representative", 40000);
+//        Employee employee1 = new Employee("John", "Doe", "Manager", 75000);
+//        Employee employee2 = new Employee("Jane", "Smith", "Accountant",  60000);
+//        Employee employee3 = new Employee("Michael", "Johnson", "Accountant", 55000);
+//        Employee employee4 = new Employee("Emily", "Jones", "Marketing Specialist", 50000);
+//        Employee employee5 = new Employee("David", "Brown", "Accountant", 45000);
+//        Employee employee6 = new Employee("Laura", "Taylor", "Human Resources Manager", 70000);
+//        Employee employee7 = new Employee("Kevin", "Wilson", "IT Specialist", 60000);
+//        Employee employee8 = new Employee("Samantha", "Davis", "Customer Service Representative", 40000);
         HashMap<Integer,Employee> employeeHashMap = new HashMap<>();
         EmployeeManager employeeManager = new EmployeeManager(employeeHashMap);
-        employeeManager.addEmployee(employee1);
-        employeeManager.addEmployee(employee2);
-        employeeManager.addEmployee(employee3);
-        employeeManager.addEmployee(employee4);
-        employeeManager.addEmployee(employee5);
+        employeeManager.addEmployee("John", "Doe", "Manager", 75000);
+        employeeManager.addEmployee("Jane", "Smith", "Accountant",  60000);
+        employeeManager.addEmployee("Michael", "Johnson", "Accountant", 55000);
+        employeeManager.addEmployee("Emily", "Jones", "Marketing Specialist", 50000);
+        employeeManager.addEmployee("David", "Brown", "Accountant", 45000);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -38,7 +39,27 @@ public class Main {
             int input = Integer.parseInt(bufferedReader.readLine());
             switch (input){
                 case 1:
-                    employeeManager.addEmployee(employee7);
+                    String firstName;
+                    String lastName;
+                    String position1;
+                    int salary;
+
+                    Scanner scanner = new Scanner(System.in);
+
+                    System.out.println("Podaj imię nowego pracownika");
+                    firstName = scanner.next();
+                    System.out.println("Podaj nazwisko nowego pracownika");
+                    lastName = scanner.next();
+                    System.out.println("Podaj pozycję nowego pracownika");
+                    position1 = scanner.next();
+                    System.out.println("Podaj wynagrodzenie nowego pracownika");
+                    try {
+                        salary = scanner.nextInt();
+                    } catch (InputMismatchException ex) {
+                        salary = 3500;
+                        System.out.println("There was an input mismatch and the salary was set to " + salary);
+                    }
+                    employeeManager.addEmployee(firstName, lastName, position1, salary);
                     break;
                 case 2:
                 {
