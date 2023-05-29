@@ -37,6 +37,7 @@ public class Main {
             System.out.println("6.Wyszukaj pracownika po pozycji");
             System.out.println("Inna wartosc zakonczy program");
             int input = Integer.parseInt(bufferedReader.readLine());
+            Scanner scanner = new Scanner(System.in);
             switch (input){
                 case 1:
                     String firstName;
@@ -44,7 +45,7 @@ public class Main {
                     String position1;
                     int salary;
 
-                    Scanner scanner = new Scanner(System.in);
+
 
                     System.out.println("Podaj imię nowego pracownika");
                     firstName = scanner.next();
@@ -69,11 +70,29 @@ public class Main {
                 }
                 case 3:
                 {
+                    System.out.println("Podaj id pracownika do edycji.");
                     int id = Integer.parseInt(bufferedReader.readLine());
-                    Employee employee = employeeManager.searchEmployeeByID(id);
-                    if(employee != null){
-                        employee.setSalary(10000);
-                        employeeManager.updateEmployee(id,employee);}
+                    String position;
+                    Employee newEmployee = employeeManager.searchEmployeeByID(id);
+
+                    System.out.println("Edytujesz pracownika: " + newEmployee.getFirstName() + " " + newEmployee.getLastName());
+                    System.out.println("Obecna pozycja tego pracownika to " + newEmployee.getPosition()
+                            + " Podaj nową pozycję albo naciśnij Enter, aby pominąć.");
+                    String inputPosition = scanner.next();
+                    if(!inputPosition.isEmpty()) {
+                        position = inputPosition;
+                        newEmployee.setPosition(position);
+                    }
+
+
+                    System.out.println("Obecne wynagrodzenie tego pracownika to " + newEmployee.getSalary()
+                            + " Podaj nową wartość wynagrodzenia.");
+                    int inputSalary = scanner.nextInt();
+                    newEmployee.setSalary(inputSalary);
+                    employeeManager.updateEmployee(id, newEmployee);
+
+
+
                     break;
 
                 }
