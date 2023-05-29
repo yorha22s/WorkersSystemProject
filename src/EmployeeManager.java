@@ -28,4 +28,13 @@ public class EmployeeManager {
         else
             System.out.println("Pracownik o takim ID nie istnieje");
     }
+
+    public Employee searchEmployeeByID(int employeeID) {
+        if(employees.containsKey(employeeID)){
+            return employees.get(employeeID);
+        }
+        else
+            System.out.println("Nie znaleziono pracownika o danym ID");
+        return null;
+    }
 }
