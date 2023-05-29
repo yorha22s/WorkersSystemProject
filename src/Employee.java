@@ -22,7 +22,13 @@ public class Employee {
         return position;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public String getLastName() {
+        return lastName;
+    }
     @Override
     public String toString() {
         return "Employee{" +
@@ -36,5 +42,9 @@ public class Employee {
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
