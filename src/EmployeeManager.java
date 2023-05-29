@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class EmployeeManager {
 
@@ -36,5 +36,13 @@ public class EmployeeManager {
         else
             System.out.println("Nie znaleziono pracownika o danym ID");
         return null;
+    }
+
+    public void listAllEmployees(){
+        ArrayList<Employee> employeeList = new ArrayList<>(employees.values());
+        for (Employee employee: employeeList
+        ) {
+            System.out.println(employee);
+        }
     }
 }
