@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -32,7 +29,7 @@ public class Main {
             System.out.println("1.Dodaj pracownika");
             System.out.println("2.Usuń pracownika");
             System.out.println("3.Zaktualizuj dane o pracowniku");
-            System.out.println("4.Wyszukaj pracownika po pozycji");
+            System.out.println("4.Wyszukaj pracownika po nazwisku");
             System.out.println("5.Wyświetl liste wszystkich pracownikow");
             System.out.println("Inna wartosc zakonczy program");
             int input = Integer.parseInt(bufferedReader.readLine());
@@ -97,12 +94,18 @@ public class Main {
                 }
                 case 4:
                 {
-                    String position = bufferedReader.readLine();
-                    HashSet<Employee> employeeHashSet = employeeManager.searchEmployeesByPosition(position);
-                    for (Employee employee: employeeHashSet
-                    ) {
-                        System.out.println(employee);
+                    System.out.println("Podaj nazwisko do wyszukania");
+                    String lastName1 = bufferedReader.readLine();
+                    HashSet<Employee> employeeHashSet = employeeManager.searchEmployeesByLastName(lastName1);
+                    if(employeeHashSet.isEmpty()) {
+                        System.out.println("Nie ma pracownika o takim nazwisku.");
+                    } else {
+                        for (Employee employee: employeeHashSet
+                        ) {
+                            System.out.println(employee);
+                        }
                     }
+
                     break;
 
                 }
