@@ -32,9 +32,8 @@ public class Main {
             System.out.println("1.Dodaj pracownika");
             System.out.println("2.Usuń pracownika");
             System.out.println("3.Zaktualizuj dane o pracowniku");
-            System.out.println("4.Wyszukaj pracownika po ID");
+            System.out.println("4.Wyszukaj pracownika po pozycji");
             System.out.println("5.Wyświetl liste wszystkich pracownikow");
-            System.out.println("6.Wyszukaj pracownika po pozycji");
             System.out.println("Inna wartosc zakonczy program");
             int input = Integer.parseInt(bufferedReader.readLine());
             Scanner scanner = new Scanner(System.in);
@@ -98,18 +97,6 @@ public class Main {
                 }
                 case 4:
                 {
-                    int id = Integer.parseInt(bufferedReader.readLine());
-                    Employee employee = employeeManager.searchEmployeeByID(id);
-                    System.out.println(employee);
-                    break;
-                }
-                case 5:
-                {
-                    employeeManager.listAllEmployees();
-                    break;
-                }
-                case 6:
-                {
                     String position = bufferedReader.readLine();
                     HashSet<Employee> employeeHashSet = employeeManager.searchEmployeesByPosition(position);
                     for (Employee employee: employeeHashSet
@@ -118,6 +105,11 @@ public class Main {
                     }
                     break;
 
+                }
+                case 5:
+                {
+                    employeeManager.listAllEmployees();
+                    break;
                 }
                 default:
                     System.exit(0);
