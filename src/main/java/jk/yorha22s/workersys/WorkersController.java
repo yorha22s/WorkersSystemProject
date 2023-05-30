@@ -10,8 +10,13 @@ import java.util.HashMap;
 public class WorkersController {
 
     HashMap<Integer, Employee> employees = new HashMap<Integer, Employee>(){{
-        for (int i = 1; i <= 20; i++) {
-            put(i, new Employee(i+"TestImie", i+"TestNazwisko", i+"TESTER", i*10000));
+        for (int i = 1; i <= 30; i++) {
+            put(i, new Employee(
+                    i+"TestImie",
+                    i+"TestNazwisko",
+                    i+"TESTER",
+                    i*10000)
+            );
         }
     }};
     EmployeeManager employeeManager = new EmployeeManager(employees);
@@ -19,9 +24,39 @@ public class WorkersController {
     public String index( Model model) {
         model.addAttribute("employees", employeeManager.listAllEmployees());
         return "index";
+    }
+    @GetMapping("edited")
+    public String edited(@RequestParam(name = "id") String employeeID,
+                         @RequestParam(name = "firstName") String firstName,
+                         @RequestParam(name = "lastName") String lastName,
+                         @RequestParam(name = "position") String position,
+                         @RequestParam(name = "salary") String salary, Model model) {
+        Employee employee = new Employee(firstName, lastName, position, Integer.parseInt(salary));
+        employee.employeeID = Integer.parseInt(employeeID);
+        employeeManager.updateEmployee(Integer.parseInt(employeeID), employee);
 
+        model.addAttribute("employees", employeeManager.listAllEmployees());
+        return "index";
     }
 
+    @GetMapping("add")
+    public String add(@RequestParam(name = "firstName") String firstName,
+                         @RequestParam(name = "lastName") String lastName,
+                         @RequestParam(name = "position") String position,
+                         @RequestParam(name = "salary") String salary, Model model) {
+
+
+        employeeManager.addEmployee(firstName, lastName, position, Integer.parseInt(salary));
+
+        model.addAttribute("employees", employeeManager.listAllEmployees());
+        return "index";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "searchValue") String lastName, Model model) {
+        model.addAttribute("employees", employeeManager.searchEmployeesByLastName(lastName));
+        return "index";
+    }
     @GetMapping("/edit")
     public String editEmployee(@RequestParam(name = "id") String employeeID, Model model) {
         model.addAttribute("employee", employeeManager.searchEmployeeByID(Integer.parseInt(employeeID)));
