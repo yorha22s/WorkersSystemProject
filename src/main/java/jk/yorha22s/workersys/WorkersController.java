@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class WorkersController {
 
     HashMap<Integer, Employee> employees = new HashMap<Integer, Employee>(){{
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 15; i++) {
             put(i, new Employee(
                     i+"TestImie",
                     i+"TestNazwisko",
@@ -25,7 +25,7 @@ public class WorkersController {
         model.addAttribute("employees", employeeManager.listAllEmployees());
         return "index";
     }
-    @GetMapping("edited")
+    @PostMapping("edited")
     public String edited(@RequestParam(name = "id") String employeeID,
                          @RequestParam(name = "firstName") String firstName,
                          @RequestParam(name = "lastName") String lastName,
@@ -39,7 +39,7 @@ public class WorkersController {
         return "index";
     }
 
-    @GetMapping("add")
+    @PostMapping("add")
     public String add(@RequestParam(name = "firstName") String firstName,
                          @RequestParam(name = "lastName") String lastName,
                          @RequestParam(name = "position") String position,
@@ -52,8 +52,9 @@ public class WorkersController {
         return "index";
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String search(@RequestParam(name = "searchValue") String lastName, Model model) {
+        if (!employeeManager.searchEmployeesByLastName(lastName).isEmpty())
         model.addAttribute("employees", employeeManager.searchEmployeesByLastName(lastName));
         return "index";
     }
