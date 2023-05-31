@@ -8,33 +8,46 @@
 <body>
 <script >
 
-function validateFirstName() {
 
-var submit = document.getElementById('submit');
-  var str = document.getElementById('firstName').value;
-  var error = document.getElementById('firstNameErr');
-<!--  var pattern = /^[A-Z][a-zA-Z]{3,}*$/;-->
-  submit.disabled = (str=="");
-<!--  submit.disabled = (!pattern.match(str));-->
-  if (submit.disabled) {
-    error.style.visibility = hidden;
-  } else {
-    error.style.visibility = hidden;
+function formValidate() {
+  var firstNameInput = document.getElementById("firstName").value;
+  var lastNameInput = document.getElementById("lastName").value;
+  var positionInput = document.getElementById("position").value;
+  var salaryInput = document.getElementById("salary").value;
+
+  var namePattern = /^[A-Za-z]{2,}$/;
+  var positionPattern = /^[A-Za-z]{2,}( [A-Za-z]{2,}){0,2}$/;
+  var salaryPattern = /^\d+(\.\d{1,2})?$/;
+
+  var invalidFields = [];
+
+  if (!namePattern.test(firstNameInput)) {
+    invalidFields.push("First Name");
   }
 
-}
+  if (!namePattern.test(lastNameInput)) {
+    invalidFields.push("Last Name");
+  }
 
+  if (!positionPattern.test(positionInput)) {
+    invalidFields.push("Position");
+  }
 
-function validateLastName() {
+  if (!salaryPattern.test(salaryInput) || parseFloat(salaryInput) < 30000) {
+    invalidFields.push("Salary");
+  }
 
-}
+  if (invalidFields.length > 0) {
+    var errorMessage = "Please correct the following fields:\n\n";
+    for (var i = 0; i < invalidFields.length; i++) {
+      errorMessage += invalidFields[i] + "\n";
+    }
 
-function validatePosition() {
+    alert(errorMessage);
+    return false;
+  }
 
-}
-
-function validateSalary() {
-
+  return true;
 }
 </script>
 <nav class="navbar navbar-expand-md bg-body-secondary shadow bg-body" data-bs-theme="dark">
@@ -55,35 +68,37 @@ function validateSalary() {
 </nav>
 <div class="container-xxl ">
   <div class="container-md mt-3 border border-2 rounded-3 p-0 shadow p-3  bg-body">
-    <form class="p-4" action="add" method="post">
+    <form onsubmit="return formValidate()" class="p-4" action="add" method="post">
 
       <div class="container" style="max-width: 450px;">
         <h1 th:text="'Add an employee'"></h1>
       </div>
       <div class="container" style="max-width: 350px;">
         <label for="firstName" class="form-label">First name</label>
-        <input onblur="validateFirstName()" id="firstName" name="firstName" class="form-control me-2" type="text">
-        <p id="firstNameErr" class="text-danger fs-6" style="visibility: hidden;">Błąd wprowadzonych danych.</p>
+        <input id="firstName" name="firstName" class="form-control me-2" type="text" required>
 
       </div>
 
       <div class="container" style="max-width: 350px;">
         <label for="lastName" class="form-label">Last name</label>
-        <input onblur="validateLastName()" id="lastName" name="lastName" class="form-control me-2" type="text">
+        <input id="lastName" name="lastName" class="form-control me-2" type="text" required>
+
       </div>
 
       <div class="container" style="max-width: 350px;">
         <label for="position" class="form-label">Position</label>
-        <input onblur="validatePosition()" id="position" name="position" class="form-control me-2" type="text">
+        <input id="position" name="position" class="form-control me-2" type="text" required>
+
       </div>
 
       <div class="container" style="max-width: 350px;">
         <label for="salary" class="form-label">Salary</label>
-        <input onblur="validateSalary()" id="salary" name="salary" class="form-control me-2" type="number">
+        <input id="salary" name="salary" class="form-control me-2" type="number" required value="30000">
+
       </div>
       <div class="container p-2" style="max-width: 350px;">
-        <button id="submit"  class="btn btn-primary" type="submit">Add an Employee</button>
-      </div>
+        <button id="submit"  class="btn btn-primary" type="submit" >Add an Employee</button>
+          </div>
     </form>
   </div>
 </div>

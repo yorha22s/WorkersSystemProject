@@ -9,12 +9,34 @@
 <body>
 <script>
 
-function validatePosition() {
+function formValidate() {
+  var positionInput = document.getElementById("position").value;
+  var salaryInput = document.getElementById("salary").value;
 
-}
+  var positionPattern = /^[A-Za-z]{2,}( [A-Za-z]{2,}){0,2}$/;
+  var salaryPattern = /^\d+(\.\d{1,2})?$/;
 
-function validateSalary() {
+  var invalidFields = [];
 
+  if (!positionPattern.test(positionInput)) {
+    invalidFields.push("Position");
+  }
+
+  if (!salaryPattern.test(salaryInput) || parseFloat(salaryInput) < 30000) {
+    invalidFields.push("Salary");
+  }
+
+  if (invalidFields.length > 0) {
+    var errorMessage = "Please correct the following fields:\n\n";
+    for (var i = 0; i < invalidFields.length; i++) {
+      errorMessage += invalidFields[i] + "\n";
+    }
+
+    alert(errorMessage);
+    return false;
+  }
+
+  return true;
 }
 </script>
     <nav class="navbar navbar-expand-md bg-body-secondary shadow bg-body" data-bs-theme="dark">
@@ -35,7 +57,7 @@ function validateSalary() {
     </nav>
     <div class="container-xxl ">
         <div class="container-md mt-3 border border-2 rounded-3 p-0 shadow p-3  bg-body">
-            <form class="p-4" action="edited" method="post">
+            <form onsubmit="return formValidate()" class="p-4" action="edited" method="post">
                 <input name="id" id="id" style="visibility: hidden;" th:value="${employee.employeeID} ">
                 <div class="container" style="max-width: 450px;">
                     <h1 th:text="'Editing employee: ' + ${employee.firstName} + ' ' + ${employee.lastName}"></h1>
@@ -45,12 +67,12 @@ function validateSalary() {
 
                 <div class="container" style="max-width: 350px;">
                     <label for="position" class="form-label">Position</label>
-                    <input onblur="validatePosition()" id="position" name="position" class="form-control me-2" type="text" th:value="${employee.position}">
+                    <input id="position" name="position" class="form-control me-2" type="text" th:value="${employee.position}">
                 </div>
 
                 <div class="container" style="max-width: 350px;">
                     <label for="salary" class="form-label">Salary</label>
-                    <input onblur="validateSalary()" id="salary" name="salary" class="form-control me-2" type="number" th:value="${employee.salary}">
+                    <input id="salary" name="salary" class="form-control me-2" type="number" th:value="${employee.salary}">
                 </div>
                 <div class="container p-2" style="max-width: 350px;">
                     <button id="submit" class="btn btn-primary" type="submit">Confirm Changes</button>
