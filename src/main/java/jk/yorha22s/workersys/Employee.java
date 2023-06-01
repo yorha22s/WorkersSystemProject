@@ -1,10 +1,13 @@
+package jk.yorha22s.workersys;
+
+
 public class Employee {
-    private String firstName;
-    private String lastName;
-    private String position;
-    private int employeeID;
-    private int salary;
-    private static int idCounter = 0;
+    public String firstName;
+    public String lastName;
+    public String position;
+    public int employeeID;
+    public int salary;
+    private static int idCounter = 1;
 
     public Employee(String firstName, String lastName, String position,  int salary) {
         this.firstName = firstName;

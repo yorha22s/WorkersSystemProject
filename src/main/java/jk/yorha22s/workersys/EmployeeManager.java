@@ -1,3 +1,5 @@
+package jk.yorha22s.workersys;
+
 import java.util.*;
 
 public class EmployeeManager {
@@ -40,12 +42,9 @@ public class EmployeeManager {
         return null;
     }
 
-    public void listAllEmployees(){
+    public ArrayList<Employee> listAllEmployees(){
         ArrayList<Employee> employeeList = new ArrayList<>(employees.values());
-        for (Employee employee: employeeList
-        ) {
-            System.out.println(employee);
-        }
+        return employeeList;
     }
 
     public HashSet<Employee> searchEmployeesByLastName(String lastName){
